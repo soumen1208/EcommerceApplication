@@ -1,0 +1,74 @@
+    <%-include('../partials/header') %>
+    <%-include('../partials/navbar') %>
+    <%-include('../partials/flash') %>
+
+
+    <!-- <h1 class="all">* All the Products *</h1> -->
+
+    <div class="row mt-5 mx-5 ">
+    
+
+        <% for(let item of products){ %>
+    
+            <div class="col-lg-2 product-card">
+                <div class="card text-center shadow mt-3 mx-2" style="width: 12rem; height: 19rem;">
+                    
+                        <% if(currentUser && currentUser.wishlist.includes(item._id)){ %>
+                                <i class="fa-solid fa-heart" style="color: red; margin-top: 5px; margin-left: 160px;" product-id="<%= item._id%>"></i>
+                            <% }else{ %>
+                                <i class="fa-regular fa-heart" style="margin-top: 5px; margin-left: 160px;" product-id="<%= item._id%>"></i>
+                        <% } %>
+                    
+
+                    <div>
+                        <img class="img" src="<%=item.img%>" class="card-img-top" alt="...">
+                    </div>
+                    <div class="card-body">
+                      <h3 class="card-title" style="font-size: 12px;"> <%= item.name %> </h3>
+                 
+                      <h5 class="card-title" style="font-size: 15px;"> Rs: <%= item.price %> </h5>
+                      <!-- <p class="card-text"> <%= item.desc %> </p> -->
+                      <p class="card-text"> <%= item.instock %> </p>
+                      <a href="/products/<%=item._id%>" class="btn btnn btn-primary">View Product</a>
+                    </div>
+                </div>
+            </div>
+            
+        <% } %>
+    </div>
+    
+
+   
+<script src="/js/common.js"></script>
+
+<%-include('../partials/footer')%>
+
+
+
+
+<!-- <div class="row">
+
+    <% for(let item of products){ %>
+        
+        <div class="col-lg-4 product-card">
+
+        <img src="<%= item.img %> " alt="">
+        <h1> <%= item.name %></h1>
+        <h2>Price: <%= item.price %> </h2> -->
+        <!-- <h3>Description: <%= item.desc %></h3> -->
+        <!-- <button style=" margin-left: 23px; height: 30px; width: 80px; background-color:rgb(88, 246, 9); border: black solid 2px; border-radius: 50px;"><a style="color: black; text-decoration: none;" href="/products/<%= item._id %>">View</a></button>
+        
+        <% if(currentUser && currentUser.role === 'seller'){ %>
+            
+            <button style="height: 30px; width: 80px; background-color:rgb(9, 226, 246); border: black solid 2px; border-radius: 50px;"><a style="color: black; text-decoration: none;" href="/products/<%= item._id %>/edit">Edit</a></button>
+        <br> -->
+        <!-- <br> -->
+        <!-- <form style="margin-left: 75px;" action="/products/<%= item._id %>?_method=DELETE" method="POST">
+            <button style="background-color: rgb(254, 130, 130); border: 2px solid rgb(202, 4, 4); border-radius: 50px;" type="submit">Delete</button>
+        </form>
+        <% } %>
+        
+        <% } %>
+    </div>
+        
+</div> -->

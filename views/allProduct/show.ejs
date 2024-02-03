@@ -1,0 +1,74 @@
+    <%-include('../partials/header')%>
+    <%-include('../partials/navbar')%>
+    <%-include('../partials/flash')%>
+    
+    
+    <section class="rows">
+        <div class="col-10 border">
+            <h1 style="font-size: 2rem;"><%= foundProducts.name %></h1>
+            <img style="height: 250px; width: 200px;" src="<%= foundProducts.img %>" alt="">
+            <h2> Price: <%= foundProducts.price %></h2>
+            
+            <% if(currentUser && currentUser.role === 'seller'){ %>
+                
+                <button style="background-color: rgb(112, 149, 236); border: 2px solid rgb(4, 57, 54); border-radius: 50px; width: 60px;"><a style="text-decoration: none; color: black;" href="/products/<%= foundProducts._id %>/edit">Edit</a></button>
+                <form class="d-inline-block" action="/products/<%= foundProducts._id %>?_method=DELETE" method="POST">
+                    <button  style="background-color: rgb(254, 130, 130); border: 2px solid rgb(202, 4, 4); border-radius: 50px; margin-top: 5px;" type="submit">Delete</button>
+                </form>
+            
+            <% } %>
+
+            <form class="d-inline-block" action="/user/<%=foundProducts._id%>/add" method="POST">
+                <button>Add to Cart</button>
+            </form>
+            
+            <h6 style="margin-left: 5px;"> Description: <%= foundProducts.desc %></>
+        </div>
+        
+        <div class="col-2 border">
+            <h1>Leave Your Review</h1>
+            <form action="/products/<%= foundProducts._id %>/rating" method="POST">
+                <label for="star" style="margin-left: 5px;">Rating: </label>
+                <!-- <input type="range" min="0" max="5" name="rating" id="star">-->
+                <fieldset class="starability-basic" style="margin-left: 5px;">
+                    <input type="radio" id="no-rate" class="input-no-rate" name="rating" value="0" checked aria-label="No rating." />
+                    <input type="radio" id="first-rate1" name="rating" value="1" />
+                    <label for="first-rate1" title="Terrible">1 star</label>
+                    <input type="radio" id="first-rate2" name="rating" value="2" />
+                    <label for="first-rate2" title="Not good">2 stars</label>
+                    <input type="radio" id="first-rate3" name="rating" value="3" />
+                    <label for="first-rate3" title="Average">3 stars</label>
+                    <input type="radio" id="first-rate4" name="rating" value="4" />
+                    <label for="first-rate4" title="Very good">4 stars</label>
+                    <input type="radio" id="first-rate5" name="rating" value="5" />
+                    <label for="first-rate5" title="Amazing">5 stars</label>
+                </fieldset>
+                <br>
+                <label style="margin-left: 5px;" for="cmnt">Comment: </label>
+                <textarea name="comment" id="cmnt" rows="2"></textarea>
+                <br>
+                <button style="margin-left: 5px;" type="submit">Add Review</button>
+                
+            </form>
+        </div>
+        
+    </section>
+  
+<div>
+    <% for(let review of foundProducts.reviews){ %>
+        <h4>Rating:</h4>
+        <h2 class="starability-result" data-rating="<%= review.rating %>">
+            Rated: <%= review.rating %> stars
+        </h2>
+        <h5>Comment: <%= review.comment %> </h5>
+        <!-- <h6>Time: <%= review.createdAt %> </h6> -->
+        <% if(review.createdAt){ %>
+            <h6>Time: <%= review.createdAt.toDateString() %> </h6>
+        <% } %>
+        <button>Delete</button>
+    <% } %>
+</div>
+    
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+<%-include('../partials/footer')%>

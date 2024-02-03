@@ -1,0 +1,83 @@
+    <%-include('../partials/header')%>
+    <%-include('../partials/navbar')%>
+    <%-include('../partials/flash')%>
+    
+<div>
+    
+    <h1>New Product Adding Form</h1>
+        
+    <form action="/products/" method="POST" novalidate>    <% // needs-validation -> this class is client side validation %>
+        <div>
+            <label for="naam">Name: </label>
+            <input type="text" name="name" id="naam" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                Please choose a Product Name.
+            </div>
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="chhobi">Image: </label>
+            <input type="text" name="img" id="chhobi">
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="prce">Price: </label>
+            <input type="text" name="price" id="prce" required>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                invalid price.
+            </div>
+        </div>
+        
+        <br>
+        
+        <div>
+            <label for="des">Description: </label>
+            <textarea name="desc" id="des" rows="2" required></textarea>
+            <div class="valid-feedback">
+                Looks good!
+            </div>
+            <div class="invalid-feedback">
+                please write about product description.
+            </div>
+        </div>
+        
+        <br>
+        
+        <button type="submit">Add Products</button>
+    </form>
+
+</div>   
+
+    <script>
+        // Example starter JavaScript for disabling form submissions if there are invalid fields
+           (() => {
+             'use strict'
+             
+             // Fetch all the forms we want to apply custom Bootstrap validation styles to
+             const forms = document.querySelectorAll('.needs-validation')
+           
+             // Loop over them and prevent submission
+             Array.from(forms).forEach(form => {
+                 form.addEventListener('submit', event => {
+                     if (!form.checkValidity()) {
+                   event.preventDefault()
+                   event.stopPropagation()
+                 }
+           
+                 form.classList.add('was-validated')
+               }, false)
+            })
+        })()
+    </script>
+
+<%-include('../partials/footer')%>
