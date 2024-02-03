@@ -21,7 +21,7 @@ const dotenv = require('dotenv').config();  // in config we can use path if our 
 
 // mongoose connections....................................................................................................................................
 mongoose.set("strictQuery", true)
-let url = 'mongodb+srv://soumenmahato4454:1234soumen@cluster0.fvqd9sj.mongodb.net/shopshopretryWrites=true&w=majority'
+let url = process.env.MONGO_URL;
 mongoose.connect(url) // return promise
 .then(()=>{console.log("DB connected")})
 .catch((err)=>{console.log("error is:", err);});
