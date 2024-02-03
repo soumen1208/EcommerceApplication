@@ -6,7 +6,16 @@ const Review = require('../model/Review');
 const { validateProduct, isLoggedIn, isSeller, isProductAuthor } = require('../middleware');
 // const validateProduct = require('../middleware');
 
-
+// Home of the product .....................................................................................................................
+router.get('/', async (req, res)=>{
+    try{
+        // let products = await Product.find({}); //return promise
+        res.render('home')
+    }catch(e){
+        res.render('error', {err:e.message})
+    }
+})
+// ------------------------------------------------------------TASK-----------------------------------------------------------------------------
 // task 1: show the all products
 router.get('/products', async (req, res)=>{
     try{
@@ -18,7 +27,7 @@ router.get('/products', async (req, res)=>{
 })
 
 // task 2: show a particular product
-router.get('/products/:id',isLoggedIn, async (req,res)=>{
+router.get('/products/:id', async (req,res)=>{
     try{
         let {id} = req.params;
         let foundProducts = await Product.findById(id).populate('reviews');
