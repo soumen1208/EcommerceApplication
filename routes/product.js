@@ -6,14 +6,6 @@ const Review = require('../model/Review');
 const { validateProduct, isLoggedIn, isSeller, isProductAuthor } = require('../middleware');
 // const validateProduct = require('../middleware');
 
-router.get('/', async (req, res)=>{
-    try{
-        // let products = await Product.find({}); //return promise
-        res.render('home')
-    }catch(e){
-        res.render('error', {err:e.message})
-    }
-})
 
 // task 1: show the all products
 router.get('/products', async (req, res)=>{
