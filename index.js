@@ -130,7 +130,8 @@ app.listen(process.env.PORT, ()=>{
 //        
 // 18. Add to cart -> 
 
-// 19. payment -> payment with the help of stripe , stripe install then we work with this create route and all others things
+// 19. payment -> payment with the help of stripe , stripe install then we work with this create route and all others things. stripe
+//     account create and get secret key
 // 20. Deploy -> mongoDB Atlas create acc then create a server
 // 21. .env -> use for private all data
 // 22. git -> user controll of git

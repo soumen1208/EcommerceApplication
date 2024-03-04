@@ -3,7 +3,7 @@ const { isLoggedIn } = require('../middleware');
 const User = require('../model/User');
 const Product = require('../model/Product');
 const router =express.Router(); // mini 
-const stripe = require('stripe')('sk_test_tR3PYbcVNZZ796tH88S4VQ2u')
+const stripe = require('stripe')('sk_test_51OdP2PSEoGgIljxyKfOjluLqfMoJuqV3h3c9wRgcIofXorKNIETneLZ8daxcTKixfdAYWvaBjTeHkOhDY2lIfGgr00vAFv4BkQ')
 
 router.get('/user/cart', async (req, res)=>{
     let userId = req.user._id;
@@ -27,28 +27,34 @@ router.post('/user/:productId/add', isLoggedIn, async (req, res)=>{
 })
 
 router.get('/checkout/:id', async (req,res)=>{
-    // let productId = req.params.id;
     let userId = req.user._id;
+ 
     let user = await User.findById(userId).populate("cart");
 
-    let totalAmount = user.cart.reduce((sum, curr)=> sum + curr.price, 0);
+    let cart = [...user.cart]
+    let cartQ = cart.map((item)=>{
+
+      return item;
+    })
+    console.log(cartQ, "Soumen");
 
     const session = await stripe.checkout.sessions.create({
-        line_items: [
-          {
-            price_data: {
-              currency: 'inr',
-              product_data: {
-                name: 'T-shirt',
+        line_items:
+          cartQ.map(item=>{
+            return       {
+              price_data: {
+                currency: 'inr',
+                product_data: {
+                  name: item.name,
+                },
+                unit_amount: item.price*100,
               },
-              unit_amount: totalAmount*100,
-            },
-            quantity: user.cart.length,
-        },
-        ],
+              quantity: 1, // HW
+            }
+          }),
         mode: 'payment',
-        success_url: 'http://localhost:4242/success',
-        cancel_url: 'http://localhost:5050/products',
+        success_url: 'http://localhost:4242/success',  //HW
+        cancel_url: 'http://localhost:5050/products',  // HW
       });
     
     res.redirect(303, session.url);
